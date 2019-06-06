@@ -1,56 +1,22 @@
 var examplearr = [];
 
-var example = {
-	'label' : "Puste",
-	'sizex' : "10",
-	'sizey' : "10",
-};
+var example = {'label' : "Puste",'sizex' : "10",	'sizey' : "10",};
+examplearr.push(example);
+
+var example = {'label' : "Puste",'sizex' : "20",'sizey' : "20",};
+examplearr.push(example);
+
+var example = {'label' : "Puste",'sizex' : "30",'sizey' : "30",};
 
 examplearr.push(example);
 
 var example = {
-	'label' : "Puste",
-	'sizex' : "20",
-	'sizey' : "20",
-};
-
-examplearr.push(example);
-
-var example = {
-	'label' : "Puste",
-	'sizex' : "30",
-	'sizey' : "30",
-};
-
-examplearr.push(example);
-
-var example = {
-	'label' : "Serce",
-	'sizex' : "10",
-	'sizey' : "10",
+	'label' : "Serce", 'sizex' : "10", 'sizey' : "10",
 	'inputy' : [
-		{'pos':1,'elem': [5]},
-		{'pos':2,'elem': [3,2]},
-		{'pos':3,'elem': [3,1]},
-		{'pos':4,'elem': [3,2]},
-		{'pos':5,'elem': [3,2]},
-		{'pos':6,'elem': [3,2]},
-		{'pos':7,'elem': [3,2]},
-		{'pos':8,'elem': [3,1]},
-		{'pos':9,'elem': [3,2]},
-		{'pos':10,'elem': [5]},
+		[[5],[3,2],[3,1],[3,2],[3,2],[3,2],[3,2],[3,1],[3,2],[5]]
 	],
 	'inputx' : [
-		{'pos':1,'elem': [3,3]},
-		{'pos':2,'elem': [2,4,2]},
-		{'pos':3,'elem': [1,2,1]},
-		{'pos':4,'elem': [1,1]},
-		{'pos':5,'elem': [2,2]},
-		{'pos':6,'elem': [3,3]},
-		{'pos':7,'elem': [3,3]},
-		{'pos':8,'elem': [6]},
-		{'pos':9,'elem': [4]},
-		{'pos':10,'elem': [2]},
+		[[3,3],[2,4,2],[1,2,1],[1,1],[2,2],[3,3],[3,3],[6],[4],[2]],
 	]		
 };
 
@@ -63,16 +29,14 @@ $( document ).ready(function() {
 	$('#picturesizefrm button').click(drawPictureMatrix);
 	
 	
-	
-	
-	console.log('test:'+	examplearr);
-	
 	$.each( examplearr, function( key, value ) {
 		console.log( value.label + ": " + key );
 		
 		$('#selectexamples').append($('<option>', {value:key, text: value.label+' '+value.sizex+'x'+value.sizey}));				
 		
 	});
+	
+	$('#selectexamples').val(3);
 	
 	
 	drawPictureMatrix();
@@ -90,10 +54,10 @@ function drawPictureMatrix()
 	
 	console.log(exampleindex);
 	
-	var ex = examplearr[exampleindex];
+	var example = examplearr[exampleindex];
 	
-	var sizex = ex.sizex;
-	var sizey = ex.sizey;
+	var sizex = example.sizex;
+	var sizey = example.sizey;
 	var x = 0;
 	var y = 0;
 	var html = '';
@@ -111,9 +75,20 @@ function drawPictureMatrix()
 			html += '<div style="" class="cell cell-b0"></div>';
 		}
 		
+		if(example.hasOwnProperty('inputx')){
+			//console.log(example.inputx[x]);
+		}
+		
 		for(y=0;y<=sizey;y++)
 		{
-		   	html += '<div style="position:relative;" class="cell" id="cell['+x+'-'+y+']"><input type="text" id="inputx'+(maxxelem-i+1)+'" /></div>';
+			value = '';
+
+			if(example.hasOwnProperty('inputx')){
+				//console.log(example.inputx[x][y]);
+				//value = example.inputx[x][y];
+			}
+			
+		   	html += '<div style="position:relative;" class="cell" id="cell['+x+'-'+y+']"><input type="text" id="inputx'+(maxxelem-i+1)+'" value="'+value+'"/></div>';
 		}
 
 		html += '</div>';
