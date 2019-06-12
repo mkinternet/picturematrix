@@ -13,10 +13,11 @@ examplearr.push(example);
 var example = {
 	'label' : "Serce", 'sizex' : "10", 'sizey' : "10",
 	'inputy' : [
-		[[5],[3,2],[3,1],[3,2],[3,2],[3,2],[3,2],[3,1],[3,2],[5]]
+		[3,3],[2,4,2],[1,2,1],[1,1],[2,2],[3,3],[3,3],[6],[4],[2],
 	],
 	'inputx' : [
-		[[3,3],[2,4,2],[1,2,1],[1,1],[2,2],[3,3],[3,3],[6],[4],[2]],
+		[5],[3,2],[3,1],[3,2],[3,2],[3,2],[3,2],[3,1],[3,2],[5]
+		
 	]		
 };
 
@@ -30,7 +31,6 @@ $( document ).ready(function() {
 	
 	
 	$.each( examplearr, function( key, value ) {
-		console.log( value.label + ": " + key );
 		
 		$('#selectexamples').append($('<option>', {value:key, text: value.label+' '+value.sizex+'x'+value.sizey}));				
 		
@@ -56,17 +56,18 @@ function drawPictureMatrix()
 	
 	var example = examplearr[exampleindex];
 	
-	var sizex = example.sizex;
-	var sizey = example.sizey;
+	var sizex = example.sizex-1;
+	var sizey = example.sizey-1;
 	var x = 0;
 	var y = 0;
 	var html = '';
 	var maxyelem = parseInt(sizey/2)+1;
 	var maxxelem = parseInt(sizex/2)+1;
 
-	console.log(maxyelem);
+//	console.log(maxyelem);
 
 
+	//rysowanie nad matryca
 	for(x=0;x<=maxxelem;x++)
 	{
 		html += '<div class="row">';
@@ -85,7 +86,13 @@ function drawPictureMatrix()
 
 			if(example.hasOwnProperty('inputx')){
 				//console.log(example.inputx[x][y]);
-				//value = example.inputx[x][y];
+				if(typeof example.inputx[y] !== 'undefined'){
+					
+					if(typeof example.inputx[y][maxxelem-x] !== 'undefined'){
+						value = example.inputx[y][maxxelem-x];
+				//		console.log('inputx:'+x+' '+y);
+					}
+				}
 			}
 			
 		   	html += '<div style="position:relative;" class="cell" id="cell['+x+'-'+y+']"><input type="text" id="inputx'+(maxxelem-i+1)+'" value="'+value+'"/></div>';
@@ -95,12 +102,32 @@ function drawPictureMatrix()
 	}
 
 
+	//rysowanie matrycy
 	for(x=0;x<=sizex;x++)
 	{
 		html += '<div class="row">';
+		
 
-		for(i=0;i<=maxxelem;i++){
-			html += '<div style="position:relative;" class="cell"><input type="text" id="inputx'+(maxxelem-i+1)+'" /></div>';
+
+
+		for(i=0;i<=maxyelem;i++){
+
+			value = '';
+			
+			if(example.hasOwnProperty('inputy')){
+				//console.log(example.inputx[x][y]);
+				if(typeof example.inputy[x] !== 'undefined'){
+					
+					if(typeof example.inputy[x][maxyelem-i] !== 'undefined'){
+						value = example.inputy[x][maxyelem-i];
+						console.log('inputy:'+i+' '+x);
+						console.log(example.inputy[i]);
+					}
+				}
+			}
+			
+			
+			html += '<div style="position:relative;" class="cell"><input type="text" id="inputy'+(maxyelem-i+1)+'" value="'+value+'"/></div>';
 		}
 		
 		for(y=0;y<=sizey;y++)
@@ -114,7 +141,7 @@ function drawPictureMatrix()
 	
 	$('.point').click(pointClick);
 
-	console.log('Wybudowane '+sizex+' '+sizey);	
+	//console.log('Wybudowane '+sizex+' '+sizey);	
 	
 	$("#picturematrix").html(html);
 	
