@@ -54,7 +54,7 @@ function drawPictureMatrix()
 {
 	var exampleindex = $("#selectexamples").val();
 	
-	console.log(exampleindex);
+	//console.log(exampleindex);
 	
 	var example = examplearr[exampleindex];
 	
@@ -111,7 +111,7 @@ function drawPictureMatrix()
 				}
 			}
 			
-		   	html += '<div style="position:relative;" class="cell" id="cell['+x+'-'+y+']"><input type="text" id="inputx'+(maxxelem-i+1)+'" value="'+value+'"/></div>';
+		   	html += '<div style="position:relative;" class="cell" x="'+x+'" y="'+y+'" id="cell['+x+'-'+y+']"><input type="text" id="inputx'+(maxxelem-i+1)+'" value="'+value+'"/></div>';
 		}
 
 		html += '</div>';
@@ -148,7 +148,7 @@ function drawPictureMatrix()
 		
 		for(y=0;y<=sizey;y++)
 		{
-		   	html += '<div style="position:relative;" class="cell cell-blank" id="cell['+x+'-'+y+']"></div>';
+		   	html += '<div style="position:relative;" class="cell cell-blank" x="'+x+'" y="'+y+'" id="cell['+x+'-'+y+']"></div>';
 		}
 
 		html += '</div>';
@@ -169,30 +169,55 @@ function drawPictureMatrix()
 
 function pointClick()
 {
+
+	
+	var x = $(this).attr('x');
+	var y = $(this).attr('y');
 		
 	if($(this).hasClass('cell-blank')){
 		
 		$(this).removeClass('cell-blank');
 		$(this).addClass('cell-fill');
 		
+		picturematrix[x][y] = 2; 
+		
 	}else if($(this).hasClass('cell-fill')){
 		
 		$(this).removeClass('cell-fill');
 		$(this).addClass('cell-empty');
+		
+		picturematrix[x][y] = 1;
 		
 	}else if($(this).hasClass('cell-empty')){
 		
 		$(this).removeClass('cell-empty');
 		$(this).addClass('cell-blank');
 		
+		picturematrix[x][y] = 0;
+		
 	}
 	
-	console.log(this.id);
+	//console.log($(this).attr('x')+'  '+$(this).attr('y'));
 }
 
 
 function clearMatrix(){
 	
-	console.log('Matrix cleared');
+	//console.log(picturematrix[0].length);
+	
+	for(x=0;x<picturematrix.length;x++)
+	{
+		for(y=0;y<picturematrix[0].length;y++){
+			
+				picturematrix[x][y] = 0;
+			
+				obj = $("#cell["+x+"-"+y+"]");
+				obj.removeClass('cell-fill');
+				obj.removeClass('cell-empty');
+				obj.addClass('cell-blank');
+		}
+	}
+	
+	
 }
 
