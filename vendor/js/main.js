@@ -21,6 +21,8 @@ var example = {
 	]		
 };
 
+var picturematrix = [];
+
 examplearr.push(example);
 
 
@@ -58,11 +60,25 @@ function drawPictureMatrix()
 	
 	var sizex = example.sizex-1;
 	var sizey = example.sizey-1;
+	
+
+	
+	
 	var x = 0;
 	var y = 0;
 	var html = '';
 	var maxyelem = parseInt(sizey/2)+1;
 	var maxxelem = parseInt(sizex/2)+1;
+
+	// fill empty matrix
+	for(x=0;x<=sizex;x++)
+	{
+		ycol = [];
+		
+		for(y=0;y<=sizey;y++) {ycol.push(0);}
+		
+		picturematrix.push(ycol);
+	}
 
 //	console.log(maxyelem);
 
@@ -142,8 +158,11 @@ function drawPictureMatrix()
 	$('.point').click(pointClick);
 
 	//console.log('Wybudowane '+sizex+' '+sizey);	
+	console.log(picturematrix);
 	
 	$("#picturematrix").html(html);
+	
+	$("#clearmatrixbtn").click(clearMatrix);
 	
 }
 
@@ -169,5 +188,11 @@ function pointClick()
 	}
 	
 	console.log(this.id);
+}
+
+
+function clearMatrix(){
+	
+	console.log('Matrix cleared');
 }
 
