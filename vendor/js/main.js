@@ -118,7 +118,7 @@ function drawPictureMatrix()
 	}
 
 
-	//rysowanie matrycy
+	//draw matrix
 	for(x=0;x<=sizex;x++)
 	{
 		html += '<div class="row">';
@@ -136,8 +136,8 @@ function drawPictureMatrix()
 					
 					if(typeof example.inputy[x][maxyelem-i] !== 'undefined'){
 						value = example.inputy[x][maxyelem-i];
-						console.log('inputy:'+i+' '+x);
-						console.log(example.inputy[i]);
+					//	console.log('inputy:'+i+' '+x);
+//						console.log(example.inputy[i]);
 					}
 				}
 			}
@@ -163,6 +163,7 @@ function drawPictureMatrix()
 	$("#picturematrix").html(html);
 	
 	$("#clearmatrixbtn").click(clearMatrix);
+	$("#checkmatrixbtn").click(checkMatrix);
 	
 }
 
@@ -221,7 +222,50 @@ function clearMatrix(){
 		}
 	}
 	
+}
+
+function checkMatrix(){
+	
 	//console.log(picturematrix);
+	var msg = '';
+
+	var checkedall = true;
+	var objectschecked = [];
+	var objectscount = 0;
+	var elementschecked = 0;
+	var prevelement = 0; //previus object`
+
+	for(var x=0;x<picturematrix.length;x++)
+	{
+		var y = 0;
+		//console.log(x);
+
+		
+		//console.log(picturematrix[x][y]);
+		
+		if(picturematrix[x][y]==0) checkedall = false;
+		
+		if(picturematrix[x][y]==2){
+			elementschecked++;
+		}
+		
+		prevelement = picturematrix[x][y];
+		
+	}
+
+
+	console.log(elementschecked);
+
+	
+
+	if(!checkedall) msg = 'Check all in col '+y;
+	
+	
+	//console.log(checkedall);
+	
+	$(".messagelog").html(msg);
 	
 }
+
+
 
