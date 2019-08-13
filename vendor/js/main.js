@@ -157,8 +157,8 @@ function drawPictureMatrix()
 	
 	$('.point').click(pointClick);
 
-	//console.log('Wybudowane '+sizex+' '+sizey);	
-	console.log(picturematrix);
+	
+	//console.log(picturematrix);
 	
 	$("#picturematrix").html(html);
 	
@@ -205,19 +205,23 @@ function clearMatrix(){
 	
 	//console.log(picturematrix[0].length);
 	
+	console.log('Clear matrix');
+	
+	
 	for(x=0;x<picturematrix.length;x++)
 	{
 		for(y=0;y<picturematrix[0].length;y++){
 			
-				picturematrix[x][y] = 0;
-			
-				obj = $("#cell["+x+"-"+y+"]");
-				obj.removeClass('cell-fill');
-				obj.removeClass('cell-empty');
-				obj.addClass('cell-blank');
+			picturematrix[x][y] = 0;
+		
+			obj = $("#cell\\["+x+"-"+y+"\\]");
+			obj.removeClass('cell-fill');
+			obj.removeClass('cell-empty');
+			obj.addClass('cell-blank');
 		}
 	}
 	
+	//console.log(picturematrix);
 	
 }
 
